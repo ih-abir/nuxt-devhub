@@ -11,8 +11,6 @@ async function importAllQueries() {
   }}`;
 }
 
-const fullQuery = await importAllQueries();
-
 async function fetchData() {
   try {
     const config = useRuntimeConfig().public;
@@ -26,7 +24,7 @@ async function fetchData() {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ query: fullQuery }),
+      body: JSON.stringify({ query: await importAllQueries() }),
     });
   } catch (error) {
     console.error("Failed to fetch data from CMS:", error);
